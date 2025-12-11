@@ -31,8 +31,8 @@ services:
       - "3002:3002"
     environment:
       - MONGO_URI=mongodb://mongo:27017/cymulate_phishing
-      - EMAIL_USER=nirsa11@gmail.com
-      - EMAIL_PASS=amle aowo lcdr tgau
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
       - PORT=3002
     depends_on:
       - mongo

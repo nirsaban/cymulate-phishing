@@ -1,0 +1,50 @@
+
+services:
+
+  mongo:
+    image: mongo:7
+    container_name: cymulate-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  management-service:
+    build: ./management-service
+    container_name: management-service
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/cymulate_phishing
+      - JWT_SECRET=supersecret123
+      - PORT=3001
+    depends_on:
+      - mongo
+
+  simulation-service:
+    build: ./simulation-service
+    container_name: simulation-service
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/cymulate_phishing
+      - EMAIL_USER=nirsa11@gmail.com
+      - EMAIL_PASS=amle aowo lcdr tgau
+      - PORT=3002
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: phishing-frontend
+    restart: always
+    ports:
+      - "3000:80"   # frontend served from nginx
+    depends_on:
+      - management-service
+
+volumes:
+  mongo_data:

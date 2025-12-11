@@ -1,0 +1,20 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Build
+dist/
+build/
+
+# Environment variables
+*.env
+.env.*
+
+# Docker
+docker-data/
+mongo_data/
+
+# Editor configs
+.DS_Store
+.idea/
+.vscode/
